@@ -1,0 +1,7 @@
+"0","fileLoc <-""/Users/Hailey/Documents/GitHub/projects/MoviePredictor/ml-25m.zip"""
+"0","#unzip(fileLoc)"
+"0","movies <- read.csv(""ml-25m/movies.csv"")"
+"0","ratings <- read.csv( ""ml-25m/ratings.csv"")"
+"0","# tags <- read.csv(""ml-25m/tags.csv"")"
+"0","mv_tags <- read.csv(""ml-25m/genome-scores.csv"")"
+"0","mv_tags_desc <- read.csv(""ml-25m/genome-tags.csv"")"

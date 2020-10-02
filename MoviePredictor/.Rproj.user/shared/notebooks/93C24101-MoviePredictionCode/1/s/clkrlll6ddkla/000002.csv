@@ -1,0 +1,3 @@
+"0","# ratings are on a larger scale than the tag comparison result will be so scale the ratings.  "
+"0","scaleratings <- ratings[,1:3]"
+"0","scaleratings$rating <- scaleratings$rating / 10"
