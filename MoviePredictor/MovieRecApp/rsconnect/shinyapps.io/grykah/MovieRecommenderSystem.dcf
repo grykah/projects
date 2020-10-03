@@ -1,0 +1,10 @@
+name: MovieRecommenderSystem
+title: MovieRecommenderSystem
+username:
+account: grykah
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2936213
+bundleId: 3697552
+url: https://grykah.shinyapps.io/MovieRecommenderSystem/
+when: 1601693555.07698

@@ -1,5 +1,0 @@
-"0","scaleratings2 <- dcast(scaleratings[1:10000,], movieId~userId, value.var = ""rating"", na.rm=FALSE)"
-"0","for (i in 1:ncol(scaleratings2)){"
-"0","  scaleratings2[which(is.na(scaleratings2[,i]) == TRUE),i] <- 0"
-"0","}"
-"0","scaleratings2 = scaleratings2[,-1] #remove movieIds col. Rows are movieIds, cols are userIds"
