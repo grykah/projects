@@ -1,0 +1,102 @@
+---
+title: "NLP"
+author: "HGRYK"
+date: "October 2, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## libraries
+```{r}
+library(pdftools)
+
+library(tm)
+library(SnowballC)
+
+library(udpipe)
+ ud_model <-udpipe_download_model(language = "english")
+ ud_model <- udpipe_load_model(ud_model$file_model)
+library(textrank)
+library(wordcloud)
+
+library(shiny)
+```
+
+
+## get pdfs
+```{r}
+files <- list.files(pattern = "pdf$")
+```
+
+## pdfs into files vector
+```{r}
+opinions <- lapply(files, pdf_text)
+lapply(opinions, length)
+```
+
+## clean the pdf text
+```{r}
+# create corpus with uniform resource identifier and readerControl
+corp <- Corpus(URISource(files),
+               readerControl = list(reader = readPDF))
+corp <- tm_map(corp, removePunctuation, ucp = TRUE)
+
+# create term document matrix with list of control parameters (i.e. how to clean the corpus)
+opinions.tdm <- TermDocumentMatrix(corp, 
+                                   control = 
+                                     list(stopwords = TRUE,
+                                          tolower = TRUE,
+                                          stemming = TRUE,
+                                          removeNumbers = TRUE,
+                                          bounds = list(global = c(length(files), Inf))  ))
+
+# view result
+inspect(opinions.tdm[1:10,]) 
+```
+
+## summary stats with tm
+```{r}
+ft <- findFreqTerms(opinions.tdm, lowfreq = 50, highfreq = Inf)
+
+ft.tdm <- as.matrix(opinions.tdm[ft,])
+sort(apply(ft.tdm, 1, sum), decreasing = TRUE)
+```
+
+
+```{r}
+x <- udpipe_annotate(ud_model, x = files) #, doc_id = files)
+x <- as.data.frame(x)
+```
+
+
+
+## dependency parcing to get adjective + subject
+
+```{r}
+stats <- merge(x, x, 
+           by.x = c("doc_id", "paragraph_id", "sentence_id", "head_token_id"),
+           by.y = c("doc_id", "paragraph_id", "sentence_id", "token_id"),
+           all.x = TRUE, all.y = FALSE, 
+           suffixes = c("", "_parent"), sort = FALSE)
+
+stats <- subset(stats, dep_rel %in% "nsubj" & upos %in% c("NOUN") & upos_parent %in% c("ADJ"))
+stats$term <- paste(stats$lemma_parent, stats$lemma, sep = " ")
+stats <- txt_freq(stats$term)
+
+wordcloud(words = stats$key, freq = stats$freq, min.freq = 3, max.words = 100,
+          random.order = FALSE, colors = brewer.pal(6, "Dark2"))
+```
+
+```{r}
+ud_model <- udpipe_download_model(language = "spanish")
+data(brussels_reviews)
+comments <- subset(brussels_reviews, language %in% "es")
+
+ud_model <- udpipe_load_model(ud_model$file_model)
+x <- udpipe_annotate(ud_model, x = comments$feedback, doc_id = comments$id)
+x <- as.data.frame(x)
+```
+
