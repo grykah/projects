@@ -1,0 +1,10 @@
+name: base (root)
+channels:
+  - conda-forge
+dependencies:
+  - jupyterlab
+  - requests
+  - pandas
+  - textblob
+  - plotly-express
+  - voila
