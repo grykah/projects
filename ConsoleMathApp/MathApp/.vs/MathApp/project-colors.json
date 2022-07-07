@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a3de12c4-d79c-4636-9069-8ecbd4f4ec61": {
+      "ProjectGuid": "a3de12c4-d79c-4636-9069-8ecbd4f4ec61",
+      "DisplayName": "MathApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
