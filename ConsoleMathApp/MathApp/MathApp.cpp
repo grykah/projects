@@ -1,11 +1,50 @@
 // MathApp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
+#include <iostream> // for outputing text and getting inputs
+#include <string>
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::cout << "Let's do some math!\n";
+    string opType;
+    string a("add");
+    string s("subtract");
+    string m("multiply");
+    string d("divide");
+
+    std::cout << "Enter mathematical operation (add, subtract, multiply, divide): ";
+    getline(cin, opType);
+    std::cout << "Great! We will " << opType << " your numbers.\nPlease enter a number now...";
+    int num1{}; //variables to store input number
+    int num2{};
+    std::cin >> num1; //get the user input
+    std::cout << "Enter the next number...";
+    std::cin >> num2;
+
+
+    if ( !(opType.compare(a)) )
+    {
+        cout << "Adding...\n" << num1 << "+" << num2 << "=" << num1 + num2 << "\n";
+    }
+    else if (!(opType.compare(s)))
+    {
+        cout << "Subtracting...\n" << num1 << "-" << num2 << "=" << num1 - num2 << "\n";
+    }
+    else if (!(opType.compare(m)))
+    {
+        cout << "Multiplying...\n" << num1 << "*" << num2 << "=" << num1 * num2 << "\n";
+    }
+    else if (!(opType.compare(d)))
+    {
+        cout << "Dividing...\n" << num1 << "/" << num2 << "=" << num1 / num2 << "\n";
+    }
+    else
+    {
+        cout << "No such operation available..." << "\n";
+    }
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
